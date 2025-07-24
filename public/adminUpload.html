@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head><meta charset="UTF-8"><title>Upload de Plugin - AIR Store</title></head>
+<body style="font-family:sans-serif; background:#111; color:#fff; padding:40px">
+  <h2>Upload de Novo Plugin</h2>
+  <form id="formPlugin" enctype="multipart/form-data">
+    <label>Nome do Plugin:</label><br><input type="text" name="nome" required><br><br>
+    <label>Descrição:</label><br><textarea name="descricao" rows="4" cols="40" required></textarea><br><br>
+    <label>Arquivo JS:</label><br><input type="file" name="arquivo" accept=".js" required><br><br>
+    <label>Ícone PNG:</label><br><input type="file" name="icone" accept=".png" required><br><br>
+    <button type="submit">Subir Plugin</button>
+  </form>
+  <script>
+    const form = document.getElementById('formPlugin');
+    form.onsubmit = async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const res = await fetch('/api/plugins/upload', { method: 'POST', body: data });
+      const json = await res.json();
+      if (json.ok) alert("Plugin enviado com sucesso!");
+      else alert("Erro ao subir plugin.");
+    }
+  </script>
+</body>
+</html>
